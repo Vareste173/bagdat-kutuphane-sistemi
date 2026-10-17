@@ -1,0 +1,314 @@
+Table Uyelik_Tipleri {
+  uyelik_tipi_id int [pk, increment]
+  tip_adi varchar(50) [not null, unique]
+  max_kitap_hakki int [not null]
+  max_odunc_gun int [not null]
+  max_uzatma_sayisi int [default: 1]
+  gunluk_ceza_tutari decimal(6,2) [default: 0]
+}
+
+Table Subeler {
+  sube_id int [pk, increment]
+  sube_adi varchar(100) [not null, unique]
+  sehir varchar(50)
+  adres varchar(255)
+  telefon varchar(20)
+  acilis_saati time
+  kapanis_saati time
+  aktif_mi boolean [default: true]
+}
+
+Table Uyeler {
+  uye_id int [pk, increment]
+  uyelik_tipi_id int [not null, ref: > Uyelik_Tipleri.uyelik_tipi_id]
+  kayit_sube_id int [ref: > Subeler.sube_id]
+  ad varchar(50) [not null]
+  soyad varchar(50) [not null]
+  eposta varchar(100) [not null, unique]
+  telefon varchar(20)
+  dogum_tarihi date
+  sifre_hash varchar(255) [not null]
+  kayit_tarihi date
+  uyelik_bitis_tarihi date
+  durum varchar(15) [default: 'Aktif']
+}
+
+Table Kutuphane_Kartlari {
+  kart_id int [pk, increment]
+  uye_id int [not null, ref: - Uyeler.uye_id]
+  barkod_no varchar(30) [not null, unique]
+  verilme_tarihi date [not null]
+  gecerlilik_bitis date
+  durum varchar(15) [default: 'Aktif']
+}
+
+Table Roller {
+  rol_id int [pk, increment]
+  rol_adi varchar(50) [not null, unique]
+  yetki_aciklamasi varchar(255)
+}
+
+Table Personel {
+  personel_id int [pk, increment]
+  rol_id int [not null, ref: > Roller.rol_id]
+  sube_id int [not null, ref: > Subeler.sube_id]
+  ust_personel_id int [ref: > Personel.personel_id]
+  ad varchar(50) [not null]
+  soyad varchar(50) [not null]
+  eposta varchar(100) [not null, unique]
+  telefon varchar(20)
+  sifre_hash varchar(255) [not null]
+  ise_baslama_tarihi date
+  durum varchar(15) [default: 'Aktif']
+}
+
+Table Bildirimler {
+  bildirim_id int [pk, increment]
+  uye_id int [not null, ref: > Uyeler.uye_id]
+  tur varchar(30)
+  baslik varchar(100)
+  mesaj varchar(500) [not null]
+  kanal varchar(10)
+  olusturma_zamani datetime
+  okundu_mu boolean [default: false]
+}
+
+Table Denetim_Loglari {
+  log_id bigint [pk, increment]
+  personel_id int [ref: > Personel.personel_id]
+  tablo_adi varchar(60) [not null]
+  kayit_id int
+  islem_turu varchar(10)
+  eski_deger text
+  yeni_deger text
+  islem_zamani datetime
+  ip_adresi varchar(45)
+}
+
+Table Yayinevleri {
+  yayinevi_id int [pk, increment]
+  yayinevi_adi varchar(150) [not null, unique]
+  sehir varchar(50)
+  eposta varchar(100)
+  web_sitesi varchar(150)
+}
+
+Table Kategoriler {
+  kategori_id int [pk, increment]
+  ust_kategori_id int [ref: > Kategoriler.kategori_id]
+  kategori_adi varchar(100) [not null]
+  dewey_kodu varchar(10)
+  aciklama varchar(255)
+  indexes {
+    (ust_kategori_id, kategori_adi) [unique]
+  }
+}
+
+Table Yazarlar {
+  yazar_id int [pk, increment]
+  ad varchar(50) [not null]
+  soyad varchar(50) [not null]
+  dogum_yili int
+  olum_yili int
+  uyruk varchar(50)
+  biyografi text
+}
+
+Table Kitaplar {
+  kitap_id int [pk, increment]
+  yayinevi_id int [not null, ref: > Yayinevleri.yayinevi_id]
+  kategori_id int [not null, ref: > Kategoriler.kategori_id]
+  kitap_adi varchar(250) [not null]
+  isbn varchar(17) [unique]
+  basim_yili int
+  baski_no int [default: 1]
+  sayfa_sayisi int
+  dil varchar(30) [default: 'Türkçe']
+  ozet text
+}
+
+Table Kitap_Yazar {
+  kitap_id int [not null, ref: > Kitaplar.kitap_id]
+  yazar_id int [not null, ref: > Yazarlar.yazar_id]
+  yazar_sirasi int [default: 1]
+  katki_turu varchar(15) [default: 'Yazar']
+  indexes {
+    (kitap_id, yazar_id) [pk]
+  }
+}
+
+Table Raflar {
+  raf_id int [pk, increment]
+  sube_id int [not null, ref: > Subeler.sube_id]
+  raf_kodu varchar(20) [not null]
+  bolum_adi varchar(80)
+  kat int
+  kapasite int
+  indexes {
+    (sube_id, raf_kodu) [unique]
+  }
+}
+
+Table Kitap_Kopyalari {
+  kopya_id int [pk, increment]
+  kitap_id int [not null, ref: > Kitaplar.kitap_id]
+  sube_id int [not null, ref: > Subeler.sube_id]
+  raf_id int [ref: > Raflar.raf_id]
+  barkod varchar(30) [not null, unique]
+  durum varchar(15) [default: 'Rafta']
+  edinme_turu varchar(15)
+  edinme_tarihi date
+  fiyat decimal(8,2)
+}
+
+Table Odunc_Islemleri {
+  odunc_id int [pk, increment]
+  uye_id int [not null, ref: > Uyeler.uye_id]
+  kopya_id int [not null, ref: > Kitap_Kopyalari.kopya_id]
+  veren_personel_id int [not null, ref: > Personel.personel_id]
+  teslim_alan_personel_id int [ref: > Personel.personel_id]
+  odunc_tarihi date [not null]
+  son_teslim_tarihi date [not null]
+  teslim_edildigi_tarih date
+  uzatma_sayisi int [default: 0]
+  durum varchar(15) [default: 'Aktif']
+}
+
+Table Odunc_Uzatmalar {
+  uzatma_id int [pk, increment]
+  odunc_id int [not null, ref: > Odunc_Islemleri.odunc_id]
+  personel_id int [ref: > Personel.personel_id]
+  eski_son_tarih date [not null]
+  yeni_son_tarih date [not null]
+  uzatma_zamani datetime
+}
+
+Table Kitap_Rezervasyonlari {
+  kitap_rezervasyon_id int [pk, increment]
+  uye_id int [not null, ref: > Uyeler.uye_id]
+  kitap_id int [not null, ref: > Kitaplar.kitap_id]
+  ayrilan_kopya_id int [ref: > Kitap_Kopyalari.kopya_id]
+  talep_zamani datetime [not null]
+  sira_no int
+  durum varchar(15) [default: 'Beklemede']
+  son_alma_zamani datetime
+}
+
+Table Hasar_Kayitlari {
+  hasar_id int [pk, increment]
+  kopya_id int [not null, ref: > Kitap_Kopyalari.kopya_id]
+  odunc_id int [ref: > Odunc_Islemleri.odunc_id]
+  personel_id int [not null, ref: > Personel.personel_id]
+  hasar_turu varchar(20)
+  aciklama varchar(500)
+  tespit_tarihi date [not null]
+  tazminat_tutari decimal(8,2) [default: 0]
+}
+
+Table Cezalar {
+  ceza_id int [pk, increment]
+  odunc_id int [not null, ref: > Odunc_Islemleri.odunc_id]
+  hasar_id int [ref: > Hasar_Kayitlari.hasar_id]
+  ceza_turu varchar(15) [not null]
+  gecikme_gun int
+  toplam_tutar decimal(8,2) [not null]
+  olusma_tarihi date [not null]
+  odeme_durumu varchar(15) [default: 'Ödenmedi']
+}
+
+Table Ceza_Odemeleri {
+  odeme_id int [pk, increment]
+  ceza_id int [not null, ref: > Cezalar.ceza_id]
+  personel_id int [ref: > Personel.personel_id]
+  tutar decimal(8,2) [not null]
+  odeme_yontemi varchar(15)
+  makbuz_no varchar(30) [not null, unique]
+  odeme_zamani datetime
+}
+
+Table Calisma_Salonlari {
+  salon_id int [pk, increment]
+  sube_id int [not null, ref: > Subeler.sube_id]
+  salon_adi varchar(80) [not null]
+  kat int
+  kapasite int [not null]
+  sessiz_mi boolean [default: true]
+  grup_calismasi_mi boolean [default: false]
+  durum varchar(15) [default: 'Açık']
+  indexes {
+    (sube_id, salon_adi) [unique]
+  }
+}
+
+Table Masalar {
+  masa_id int [pk, increment]
+  salon_id int [not null, ref: > Calisma_Salonlari.salon_id]
+  masa_numarasi varchar(10) [not null]
+  koltuk_sayisi int [default: 1]
+  priz_var_mi boolean [default: false]
+  durum varchar(15) [default: 'Aktif']
+  indexes {
+    (salon_id, masa_numarasi) [unique]
+  }
+}
+
+Table Masa_Rezervasyonlari {
+  rezervasyon_id int [pk, increment]
+  uye_id int [not null, ref: > Uyeler.uye_id]
+  masa_id int [not null, ref: > Masalar.masa_id]
+  baslangic_saati datetime [not null]
+  bitis_saati datetime [not null]
+  giris_zamani datetime
+  durum varchar(15) [default: 'Aktif']
+}
+
+Table Etkinlikler {
+  etkinlik_id int [pk, increment]
+  sube_id int [not null, ref: > Subeler.sube_id]
+  salon_id int [ref: > Calisma_Salonlari.salon_id]
+  olusturan_personel_id int [not null, ref: > Personel.personel_id]
+  baslik varchar(150) [not null]
+  aciklama text
+  baslangic_zamani datetime [not null]
+  bitis_zamani datetime [not null]
+  kontenjan int
+  durum varchar(15) [default: 'Planlandı']
+}
+
+Table Etkinlik_Katilimcilari {
+  etkinlik_id int [not null, ref: > Etkinlikler.etkinlik_id]
+  uye_id int [not null, ref: > Uyeler.uye_id]
+  kayit_zamani datetime
+  katildi_mi boolean [default: false]
+  indexes {
+    (etkinlik_id, uye_id) [pk]
+  }
+}
+
+Table Okuma_Istatistikleri {
+  istatistik_id int [pk, increment]
+  uye_id int [not null, ref: > Uyeler.uye_id]
+  yil int [not null]
+  ay int [not null]
+  alinan_kitap_sayisi int [default: 0]
+  zamaninda_iade_sayisi int [default: 0]
+  geciken_iade_sayisi int [default: 0]
+  masa_kullanim_saati decimal(6,2) [default: 0]
+  etkinlik_katilim_sayisi int [default: 0]
+  puan int [default: 0]
+  indexes {
+    (uye_id, yil, ay) [unique]
+  }
+}
+
+Table Ayin_Odulleri {
+  odul_id int [pk, increment]
+  uye_id int [not null, ref: > Uyeler.uye_id]
+  istatistik_id int [not null, ref: > Okuma_Istatistikleri.istatistik_id]
+  odul_turu varchar(40) [not null]
+  verilme_tarihi date [not null]
+  aciklama varchar(255)
+  indexes {
+    (istatistik_id, odul_turu) [unique]
+  }
+}
