@@ -1,0 +1,8 @@
+bookID,title,authors,average_rating,isbn,isbn13,language_code,  num_pages,ratings_count,text_reviews_count,publication_date,publisher
+1,Harry Potter and the Half-Blood Prince (Harry Potter  #6),J.K. Rowling/Mary GrandPré,4.57,0439785960,9780439785969,eng,652,2095690,27591,9/16/2006,Scholastic Inc.
+2,Test Book A,Jane Doe/John Smith (Translator),4.0,0306406152,9780306406157,eng,300,100,5,1/1/1990,Alpha Press
+3,Test Book A,Jane Doe/John Smith (Translator),4.0,0306406152,9780306406157,eng,,100,5,1/1/1990,
+4,Only ISBN10 Book,Sam Poet,3.9,080442957X,,en-US,120,50,2,3/5/2001,Beta Books
+5,Bad Checksum Book,Ali Veli,3.5,1234567890,1234567890123,eng,200,10,1,1/1/2010,Gamma
+6,Lonely Goodreads Book,Maria Garcia,4.2,0000000019,9780000000019,spa,310,40,3,5/5/2015,
+7,Illustrated Tale,Ann Writer/Bob Drawer (Illustrator),4.1,0471958697,9780471958697,eng,64,70,6,2/2/1995,Delta House
