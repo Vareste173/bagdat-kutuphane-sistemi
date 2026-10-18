@@ -1,0 +1,6 @@
+isbn13,isbn10,title,subtitle,authors,categories,thumbnail,description,published_year,average_rating,num_pages,ratings_count
+9780439785969,0439785960,Harry Potter and the Half-Blood Prince,,J.K. Rowling;Mary GrandPré,Juvenile Fiction,http://x/1.jpg,Sixth year at Hogwarts.,2006,4.57,652,2095690
+9780306406157,0306406152,Test Book A,A Subtitle,Jane Doe;John Smith (Translator),Mathematics,http://x/2.jpg,A math book.,1990,4.0,301,100
+9780804429573,080442957X,Only ISBN10 Book,,Sam Poet,Poetry,http://x/3.jpg,Poems.,2001,3.9,120,50
+9780000000026,,Only In 7k,,Lee Ng,Fiction / Science Fiction,http://x/4.jpg,A novel.,2020,4.0,250,9
+9780000000019,0000000019,Lonely Goodreads Book,,Maria Garcia,Travel,http://x/5.jpg,Trip notes.,2015,4.2,310,40
