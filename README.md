@@ -174,7 +174,7 @@ Her görev için aynı akış izlenir:
 
 - 📄 Proje uygulama planı: `docs/BAGDAT_Proje_Plani.pdf`
 - 🗺️ ER diyagramı: `docs/er.png`, `docs/er.dbml`
-- 📊 Proje raporu: `docs/rapor.pdf` *(hazırlandığında eklenecek)*
+- 📊 Proje raporu: `docs/rapor.pdf` 
 
 **Örnek veri kaynakları:** Kullanılan veri setlerinin adı, bağlantısı, lisansı ve dönüştürme adımları `data/README.md` dosyasında belirtilir. Üye ve personel verileri gerçek kişilere ait değildir; üretilmiştir.
 
