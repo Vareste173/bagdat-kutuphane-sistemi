@@ -23,7 +23,7 @@ Bu belge, BAĞDAT projesinde dört kişinin aynı depoda birbirinin işini bozma
    ```
 3. **Çalış:** Küçük ve sık commit atın. Mesaj biçimi: `BAG-11: sp_iade_al gecikme cezası eklendi`
 4. **Test yaz ve çalıştır:** Görevin test dosyası PR ile birlikte gelir (`tests/modulX/BAG-N_test.sql`). Yerelde `bash tests/run_all.sh` geçmelidir.
-5. **PR aç:** Başlık `BAG-11: ...` ile başlar, açıklama aşağıdaki "PR açıklaması" bölümüne göre yazılır, reviewer olarak sıradaki kişi seçilir.
+5. **PR aç:** Başlık BAG-11: ile başlar, açıklamada neyin yapıldığı, nasıl test edildiği ve reviewer için notlar yazılır, reviewer olarak sıradaki kişi seçilir
 6. **İnceleme:** Reviewer kodu okur, testleri çalıştırır, yorum bırakır veya onaylar.
 7. **Birleştir:** En az 1 onay ve geçen testlerden sonra **Squash and merge**. Dal silinir.
 8. **Bitir:** Jira'da görev "Bitti" olur. Birleştirmeyi yapan kişi bunu kontrol eder.
