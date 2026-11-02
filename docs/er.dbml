@@ -1,7 +1,5 @@
 // BAĞDAT — ER şeması v2 (PostgreSQL, 28 tablo)
-// dbdiagram.io sol panele yapıştırılır.
 // CHECK, kısmi (filtreli) unique index ve EXCLUDE kısıtları DBML'de çizilemez;
-// ilgili yerlerde "// CHECK / // KISMİ UNIQUE" yorumu olarak yazılmıştır, SQL dosyasında uygulanacaktır.
 // Bileşik yabancı anahtarlar dosyanın sonundaki Ref satırlarındadır.
 
 // ---------------- MODÜL 1: Üyelik, personel, sistem ----------------
