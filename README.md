@@ -77,10 +77,9 @@ Model **4 modülde toplam 28 tablodan** oluşur. Merkezde `Uyeler` ve `Kitap_Kop
 
 ### ER diyagramı
 
-<!-- TODO: docs/er.png dosyasını ekledikten sonra aşağıdaki satırın başındaki işareti kaldırın -->
-<!-- ![ER Diyagramı](docs/er.png) -->
+![ER Diyagramı](docs/er.png)
 
-ER diyagramı [dbdiagram.io](https://dbdiagram.io) ile hazırlanmıştır. DBML kaynağı `docs/er.dbml` dosyasındadır.
+ER diyagramı [dbdiagram.io](https://dbdiagram.io) ile hazırlanmıştır. DBML kaynağı `docs/er.dbml` dosyasındadır. DBML; CHECK kısıtlarını, kısmi benzersiz indeksleri ve EXCLUDE kısıtlarını ifade edemediği için bunlar yalnızca not olarak yer alır, gerçek tanımları `sql/` klasöründeki dosyalardadır.
 
 ## 🧠 Teknik tasarım kararları
 
@@ -95,7 +94,7 @@ ER diyagramı [dbdiagram.io](https://dbdiagram.io) ile hazırlanmıştır. DBML 
 
 ## 🚀 Kurulum ve çalıştırma
 
-**Gereksinimler:** PostgreSQL ve `psql` komut satırı aracı.
+**Gereksinimler:** PostgreSQL 16 ve `psql` komut satırı aracı.
 
 > ⚠️ Bu bölüm, ilgili dosyalar depoya eklendikçe doğrulanmalıdır. Komutlar planlanan klasör yapısına göredir.
 
@@ -127,14 +126,22 @@ Test dosyası adı kuralı: `tests/modulX/BAG-N_test.sql`.
 ## 📁 Klasör yapısı
 
 ```
-
-
-
-
-
-
-
-
+bagdat/
+├── README.md
+├── CONTRIBUTING.md
+├── docs/            # rapor, ER diyagramı, sunum, demo senaryosu
+├── sql/
+│   ├── 00_setup.sql
+│   ├── install.sql              # tüm modülleri doğru sırayla kurar
+│   ├── 01_modul1/               # üyelik, personel, sistem
+│   ├── 02_modul2/               # katalog ve envanter
+│   ├── 03_modul3/               # dolaşım
+│   ├── 04_modul4/               # çalışma alanları ve okuma teşviki
+│   └── 96_… 99_                 # performans, çapraz sorgular, görünümler, roller
+├── data/            # örnek veri dosyaları (CSV) ve kaynak notları
+├── tools/           # veri üretim betikleri
+└── tests/           # run_all.sh ve modül testleri
+```
 
 ## 🤝 Çalışma düzeni
 
@@ -147,6 +154,7 @@ Her görev için aynı akış izlenir:
 5. Pull request açılır; ekipten başka biri inceler, dalı çekip testleri çalıştırır.
 6. En az 1 onay ve geçen testlerden sonra `main`'e birleştirilir; Jira'da görev "Bitti" olur.
 
+`main` dalına doğrudan push yapılmaz.
 
 ## 📈 Proje durumu
 
@@ -164,8 +172,8 @@ Her görev için aynı akış izlenir:
 ## 📎 Dokümanlar ve veri kaynakları
 
 - 📄 Proje uygulama planı: `docs/BAGDAT_Proje_Plani.pdf`
-- 🗺️ ER diyagramı: `docs/er.png`, `docs/er.dbml`
-- 📊 Proje raporu: `docs/bagdat_proje_raporu_VTYS.pdf` 
+- 🗺️ ER diyagramı: `docs/er.png`, `docs/er.pdf`, `docs/er.dbml`
+- 📊 Proje raporu: `docs/BAGDAT_Proje_Dosyasi.pdf`
 
 **Örnek veri kaynakları:** Kullanılan veri setlerinin adı, bağlantısı, lisansı ve dönüştürme adımları `data/README.md` dosyasında belirtilir. Üye ve personel verileri gerçek kişilere ait değildir; üretilmiştir.
 
