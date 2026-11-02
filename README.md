@@ -173,7 +173,7 @@ Her görev için aynı akış izlenir:
 
 - 📄 Proje uygulama planı: `docs/BAGDAT_Proje_Plani.pdf`
 - 🗺️ ER diyagramı: `docs/er.png`, `docs/er.pdf`, `docs/er.dbml`
-- 📊 Proje raporu: `docs/BAGDAT_Proje_Dosyasi.pdf`
+- 📊 Proje raporu: `docs/Bağdat_proje_dosyası_VTYS.pdf`
 
 **Örnek veri kaynakları:** Kullanılan veri setlerinin adı, bağlantısı, lisansı ve dönüştürme adımları `data/README.md` dosyasında belirtilir. Üye ve personel verileri gerçek kişilere ait değildir; üretilmiştir.
 
