@@ -1,6 +1,6 @@
 # 📚 BAĞDAT - Akıllı Kütüphane ve Materyal Yönetim Sistemi
 
-**Veritabanı Yönetim Sistemleri (VYS) Dönem Projesi**
+**Veritabanı Tasarımı Ve Yönetim Sistemleri (VTYS) Dönem Projesi**
 
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-database-336791?logo=postgresql&logoColor=white)
 ![Tablolar](https://img.shields.io/badge/tablo-28-blue)
